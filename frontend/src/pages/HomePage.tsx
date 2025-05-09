@@ -17,7 +17,7 @@ const HomePage = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
+        delayChildren: 0.1,
         staggerChildren: 0.1
       }
     }
@@ -51,7 +51,7 @@ const HomePage = () => {
             transition={{ duration: 10, ease: "easeOut" }}
           />
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-gradient-to-r via-black/60 to-black/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5 }}
