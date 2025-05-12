@@ -5,12 +5,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 // Routes
-import walletRoutes from './routes/walletRoutes.js';
-import paymentRoutes from './routes/paymentRoutes.js';
-import userRoutes from './routes/userRoutes.js';
+import walletRoutes from './src/routes/walletRoutes.js';
+import paymentRoutes from './src/routes/paymentRoutes.js';
+import userRoutes from './src/routes/userRoutes.js';
 
 // Middleware
-import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+import { errorHandler, notFound } from './src/middleware/errorMiddleware.js';
 
 // Initialize environment variables
 dotenv.config();

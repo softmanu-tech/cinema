@@ -1,45 +1,48 @@
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+
 const userSchema = new mongoose.Schema({
-    name:{
-    type:string,
-    required:true
-    },
-    email:{
-        type:string,
-        required:true,
-        unique:true,
-        lowercase:true,
-        trim:true,
-        match: [/^\S+@\S+\.\S+$/, 'is invalid'],
-    },
-    password:{
-        type:string,
-        required:true
-    },
-    role:{
-        type:string,
-        enum:['user','admin'],
-        default:'user'
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now
-    }
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
+  },
+  phoneNumber: {
+    type: String,
+    trim: true
+  }
 }, {
-    timestamps:true
-})
-
-userSchema.pre('save', async function(next){
-    if (!this.isModified('password')){
-        return next()
-    }
-
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
-    next()
+  timestamps: true
 });
 
-userSchema.methods.matchPassword = async function(enteredPassword){
-    return await bcrypt.compare(enteredPassword, this.password)
+// Hash password before saving
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+// Method to compare passwords
+userSchema.methods.matchPassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
 };
-const User = mongoose.model('User', userSchema)
-export default User                                                                                                             ;
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
